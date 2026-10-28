@@ -44,3 +44,8 @@ next-env.d.ts
 ezlancing-brand-update.zip
 *.zip:Zone.Identifier
 *.zip:sec.endpointdlp
+
+# Local downloaded packages
+ezlancing-brand-update.zip
+*.zip:Zone.Identifier
+*.zip:sec.endpointdlp
