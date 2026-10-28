@@ -100,3 +100,11 @@ Launch jurisdiction(s), legal entity and terms; allowed currencies, region cover
 **Required reading:** `AGENTS.md` and `AI_RULEBOOK.md`. Protect the existing UI, do one feature at a time, review relevant branches and uncommitted changes, test, provide local acceptance steps, reconcile a second time before any main merge, and never state unverified deployment success.
 
 **GitHub:** https://github.com/Hirzo0o/ezlancing-platform
+
+## Interactive marketplace prototype (`/marketplace`)
+
+The `feat/marketplace-functional-demo-20261028` branch adds a **separate** interactive demo route linked from the current landing page. The existing homepage design, brand colors and layout are retained.
+
+Demo workflows: service catalog filtering/search/sorting; service package details and example order recording; project browsing/filtering/posting; proposal submissions and duplicate-prevention; browser-local name/email demo sign-in; and dashboard summaries of orders, proposals and projects. These features use clearly labeled local browser storage and sample data. **No actual login, backend data persistence, payment, escrow, seller notification or public listing has been implemented.** Opening the demo in a different device or browser will not share records.
+
+Production follow-ups: real session-based auth and roles; Prisma-owned projects/services/proposals/orders; server authorization and validation; multi-user coordination; legal/payment provider due diligence; comprehensive AR/RTL feature coverage; moderation and tests. Any change to the stack or migrations remains approval-gated by `AI_RULEBOOK.md`.
