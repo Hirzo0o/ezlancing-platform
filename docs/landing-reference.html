@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ezlancing platform | MENA's Leading Freelance & Gig Marketplace</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Merriweather -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              indigo: '#231C53',
+              darkIndigo: '#18123C',
+              lime: '#36E514',
+              brightLime: '#4BF31E',
+              cyan: '#4FE8F4',
+              ice: '#F0F7FF',
+              dark: '#0F172A',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Merriweather', 'serif'],
+          },
+          boxShadow: {
+            'card': '0 10px 30px -5px rgba(35, 28, 83, 0.08)',
+            'card-hover': '0 20px 40px -10px rgba(35, 28, 83, 0.16)',
+            'lime-glow': '0 0 25px rgba(54, 229, 20, 0.4)',
+            'cyan-glow': '0 0 20px rgba(79, 232, 244, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F0F7FF;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #231C53;
+      border-radius: 4px;
+    }
+    /* Dynamic UI transitions */
+    .transition-all-custom {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .gradient-hero {
+      background: radial-gradient(circle at 80% 20%, rgba(79, 232, 244, 0.15) 0%, transparent 40%),
+                  linear-gradient(135deg, #18123C 0%, #231C53 100%);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 font-sans text-brand-dark antialiased">
+
+  <!-- ================= HEADER / NAVIGATION ================= -->
+  <header class="sticky top-0 z-50 bg-brand-indigo/95 backdrop-blur-md border-b border-white/10 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Brand Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <!-- SVG Logo Mark based on Brand Guidelines -->
+          <div class="relative w-10 h-10 flex items-center justify-center">
+            <svg class="w-10 h-10 transform group-hover:scale-105 transition-transform" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Laptop Screen Frame -->
+              <rect x="15" y="25" width="70" height="48" rx="4" stroke="#4FE8F4" stroke-width="5" fill="#18123C"/>
+              <!-- Laptop Base -->
+              <path d="M5 77C5 74.2386 7.23858 72 10 72H90C92.7614 72 95 74.2386 95 77V79C95 80.1046 94.1046 81 93 81H7C5.89543 81 5 80.1046 5 79V77Z" fill="#4FE8F4"/>
+              <!-- S-Path inside screen -->
+              <path d="M28 62 H62 C68 62 68 52 62 52 H38 C32 52 32 42 38 42 H50" stroke="#4FE8F4" stroke-width="4" stroke-linecap="round"/>
+              <!-- Pointer Rocket (Neon Lime Gradient) -->
+              <path d="M50 10 L75 46 L50 38 L25 46 Z" fill="url(#lime-grad)"/>
+              <defs>
+                <linearGradient id="lime-grad" x1="25" y1="10" x2="75" y2="46" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#4BF31E"/>
+                  <stop offset="1" stop-color="#36E514"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl font-extrabold tracking-tight text-white leading-none">
+              ezlancing<span class="text-brand-lime">.</span>
+            </span>
+            <span class="text-[10px] tracking-widest text-brand-cyan uppercase font-semibold">platform</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+          <a href="#explore" class="hover:text-brand-cyan transition-colors">Find Work</a>
+          <a href="#categories" class="hover:text-brand-cyan transition-colors">Categories</a>
+          <a href="#how-it-works" class="hover:text-brand-cyan transition-colors">How it Works</a>
+          <a href="#enterprise" class="hover:text-brand-cyan transition-colors">MENA Enterprise</a>
+        </nav>
+
+        <!-- Right Side Controls -->
+        <div class="hidden sm:flex items-center space-x-4">
+          <!-- Currency/Language Switcher -->
+          <button onclick="toggleCurrencyModal()" class="flex items-center gap-1.5 text-xs font-semibold bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg transition-colors">
+            <i class="fa-solid fa-globe text-brand-cyan"></i>
+            <span>MENA (USD / AED)</span>
+          </button>
+          
+          <a href="#login" class="text-sm font-semibold hover:text-brand-cyan px-3 py-2 transition-colors">Sign In</a>
+          <a href="#register" class="bg-brand-lime text-brand-darkIndigo hover:bg-brand-brightLime font-bold text-sm px-5 py-2.5 rounded-lg shadow-lime-glow hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+            Get Started
+          </a>
+        </div>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobile-menu-btn" class="md:hidden text-white p-2 rounded-lg hover:bg-white/10">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-darkIndigo border-b border-white/10 px-4 pt-2 pb-6 space-y-3">
+      <a href="#explore" class="block py-2 text-base font-medium hover:text-brand-cyan">Find Work</a>
+      <a href="#categories" class="block py-2 text-base font-medium hover:text-brand-cyan">Categories</a>
+      <a href="#how-it-works" class="block py-2 text-base font-medium hover:text-brand-cyan">How it Works</a>
+      <a href="#enterprise" class="block py-2 text-base font-medium hover:text-brand-cyan">MENA Enterprise</a>
+      <div class="pt-4 border-t border-white/10 flex flex-col gap-3">
+        <a href="#login" class="text-center font-semibold py-2">Sign In</a>
+        <a href="#register" class="bg-brand-lime text-brand-darkIndigo text-center font-bold py-3 rounded-lg">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="gradient-hero text-white relative overflow-hidden py-16 lg:py-24">
+    <!-- Decorative Ambient Elements -->
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/2 right-0 w-80 h-80 bg-brand-lime/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column: Copy & Interactive Search -->
+        <div class="lg:col-span-7 space-y-8">
+          
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-brand-cyan/30 text-xs font-semibold text-brand-cyan">
+            <span class="w-2 h-2 rounded-full bg-brand-lime animate-pulse"></span>
+            #1 Freelance Hub in Middle East & North Africa
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+            Connect with top <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-white to-brand-lime">MENA Talent</span> & Gigs
+          </h1>
+
+          <p class="text-lg text-slate-300 max-w-2xl font-normal leading-relaxed">
+            Hire verified regional experts or monetize your skills across UAE, KSA, Egypt, Jordan & beyond with local payouts, verified Arabic & English talent, and escrow security.
+          </p>
+
+          <!-- Interactive Search Container -->
+          <div class="bg-white p-2 sm:p-3 rounded-xl shadow-2xl text-slate-800">
+            <!-- Tabs: Search Talent vs Find Gigs -->
+            <div class="flex border-b border-slate-200 mb-3 px-2">
+              <button id="tab-services" onclick="switchSearchTab('services')" class="py-2 px-4 text-sm font-bold border-b-2 border-brand-indigo text-brand-indigo flex items-center gap-2">
+                <i class="fa-solid fa-briefcase">="text-brand-lime"></i> Find Services
+              </button>
+              <button id="tab-talent" onclick="switchSearchTab('talent')" class="py-2 px-4 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-brand-indigo flex items-center gap-2">
+                <i class="fa-solid fa-user-tie"></i> Hire Freelancers
+              </button>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-2">
+              <div class="relative flex-grow">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="search-input" placeholder="Try 'Arabic SEO Expert' or 'Mobile App Developer'..." class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-indigo text-sm font-medium">
+              </div>
+              <!-- Category Filter -->
+              <select class="py-3 px-4 bg-slate-50 border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-indigo">
+                <option value="">All Regions (MENA)</option>
+                <option value="uae">United Arab Emirates 🇦🇪</option>
+                <option value="ksa">Saudi Arabia 🇸🇦</option>
+                <option value="egypt">Egypt 🇪🇬</option>
+                <option value="jordan">Jordan 🇯🇴</option>
+              </select>
+              <button onclick="executeSearch()" class="bg-brand-lime hover:bg-brand-brightLime text-brand-darkIndigo font-bold px-7 py-3 rounded-lg shadow-md transition-all flex items-center justify-center gap-2">
+                <span>Search</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+
+            <!-- Popular Tags -->
+            <div class="flex items-center gap-2 mt-3 px-2 text-xs text-slate-500 overflow-x-auto pb-1">
+              <span class="font-semibold text-slate-600">Popular:</span>
+              <button onclick="setSearch('Localization')" class="bg-slate-100 hover:bg-brand-ice px-2.5 py-1 rounded-md text-slate-700 transition-colors">Arabic Copywriting</button>
+              <button onclick="setSearch('Flutter')" class="bg-slate-100 hover:bg-brand-ice px-2.5 py-1 rounded-md text-slate-700 transition-colors">Flutter Dev</button>
+              <button onclick="setSearch('UI Design')" class="bg-slate-100 hover:bg-brand-ice px-2.5 py-1 rounded-md text-slate-700 transition-colors">Figma UI/UX</button>
+              <button onclick="setSearch('Media Buyer')" class="bg-slate-100 hover:bg-brand-ice px-2.5 py-1 rounded-md text-slate-700 transition-colors">TikTok Media Buyer</button>
+            </div>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="pt-4 flex flex-wrap items-center gap-6 text-slate-300 text-xs font-medium">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-brand-lime text-base"></i>
+              <span>Milestone Escrow Security</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-credit-card text-brand-cyan text-base"></i>
+              <span>Mada, KNET, Apple Pay & Bank Wire</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-language text-brand-lime text-base"></i>
+              <span>Bilingual Support (EN/AR)</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Freelancer Hero Card Showcase -->
+        <div class="lg:col-span-5 relative">
+          <!-- Main Hero Floating Card -->
+          <div class="bg-white text-brand-dark p-6 rounded-2xl shadow-card relative border border-slate-100">
+            <div class="flex items-start justify-between">
+              <div class="flex gap-4">
+                <div class="relative">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Freelancer" class="w-16 h-16 rounded-full object-cover border-2 border-brand-cyan">
+                  <span class="absolute bottom-0 right-0 w-4 h-4 bg-brand-lime border-2 border-white rounded-full"></span>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg text-brand-indigo">Nour Al-Hassan</h3>
+                  <p class="text-xs text-slate-500 font-medium">Senior UI/UX & Mobile Architect</p>
+                  <div class="flex items-center gap-1 mt-1 text-xs">
+                    <i class="fa-solid fa-star text-amber-400"></i>
+                    <span class="font-bold text-slate-800">4.98</span>
+                    <span class="text-slate-400">(142 projects)</span>
+                  </div>
+                </div>
+              </div>
+              <span class="bg-emerald-50 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-200">
+                Top Rated MENA
+              </span>
+            </div>
+
+            <!-- Gig Highlight -->
+            <div class="mt-4 p-3 bg-brand-ice rounded-lg border border-slate-200/60">
+              <p class="text-xs font-semibold text-brand-indigo line-clamp-2">
+                "I will design modern Fintech & E-commerce iOS/Android App UI in Figma with Arabic RTL Support"
+              </p>
+              <div class="mt-3 flex items-center justify-between text-xs">
+                <span class="text-slate-500">Starting from</span>
+                <span class="font-extrabold text-brand-indigo text-base">$350 <span class="text-[10px] text-slate-400 font-normal">/ fixed</span></span>
+              </div>
+            </div>
+
+            <!-- Location & Badges -->
+            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+              <span class="flex items-center gap-1.5 font-medium">
+                <i class="fa-solid fa-location-dot text-brand-indigo"></i> Dubai, UAE 🇦🇪
+              </span>
+              <div class="flex gap-1">
+                <span class="bg-slate-100 px-2 py-0.5 rounded text-[11px] font-semibold text-slate-600">Arabic Native</span>
+                <span class="bg-slate-100 px-2 py-0.5 rounded text-[11px] font-semibold text-slate-600">English C2</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Floating Micro-Badge -->
+          <div class="absolute -bottom-6 -left-6 bg-brand-indigo text-white p-4 rounded-xl shadow-2xl border border-white/10 hidden sm:flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-brand-lime/20 flex items-center justify-center text-brand-lime">
+              <i class="fa-solid fa-vault text-xl"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-slate-300">Escrow Protected</p>
+              <p class="text-sm font-bold text-white">$12.4M+ Paid Safely</p>
+            </div>
+          </div>
+
+          <!-- Tertiary Floating Pill -->
+          <div class="absolute -top-6 -right-4 bg-white p-3 rounded-xl shadow-lg border border-slate-100 hidden sm:flex items-center gap-3">
+            <div class="w-3 h-3 rounded-full bg-brand-lime animate-ping"></div>
+            <p class="text-xs font-bold text-brand-indigo">1,420+ Gigs Active Today</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= METRICS STATS BAR ================= -->
+  <section class="bg-white border-b border-slate-200 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <p class="text-3xl sm:text-4xl font-extrabold text-brand-indigo">45,000+</p>
+          <p class="text-xs sm:text-sm text-slate-500 font-medium mt-1">Verified MENA Freelancers</p>
+        </div>
+        <div>
+          <p class="text-3xl sm:text-4xl font-extrabold text-brand-indigo">98.4%</p>
+          <p class="text-xs sm:text-sm text-slate-500 font-medium mt-1">On-Time Escrow Payouts</p>
+        </div>
+        <div>
+          <p class="text-3xl sm:text-4xl font-extrabold text-brand-indigo">18 Countries</p>
+          <p class="text-xs sm:text-sm text-slate-500 font-medium mt-1">Regional MENA Coverage</p>
+        </div>
+        <div>
+          <p class="text-3xl sm:text-4xl font-extrabold text-brand-indigo">4.9 / 5.0</p>
+          <p class="text-xs sm:text-sm text-slate-500 font-medium mt-1">Average Client Rating</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURED CATEGORIES ================= -->
+  <section id="categories" class="py-16 bg-brand-ice">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-indigo">Browse High-Demand Skill Categories</h2>
+          <p class="text-slate-600 mt-2 text-sm sm:text-base">Explore specialized talents tailored for Arabic localization and modern tech needs.</p>
+        </div>
+        <a href="#all-categories" class="mt-4 md:mt-0 inline-flex items-center gap-2 text-sm font-bold text-brand-indigo hover:text-brand-lime transition-colors">
+          <span>View All Categories</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Categories Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Category Card 1 -->
+        <div class="bg-white p-6 rounded-xl shadow-card hover:shadow-card-hover transition-all border border-slate-100 group cursor-pointer">
+          <div class="w-12 h-12 rounded-lg bg-brand-indigo text-brand-cyan flex items-center justify-center text-xl font-bold group-hover:scale-110 group-hover:bg-brand-lime group-hover:text-brand-darkIndigo transition-all">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <h3 class="mt-4 font-bold text-lg text-brand-indigo">Software & Web Dev</h3>
+          <p class="text-xs text-slate-500 mt-1">React, Flutter, Python, PHP, Full-Stack</p>
+          <div class="mt-4 flex items-center justify-between text-xs font-semibold text-slate-600 pt-3 border-t border-slate-100">
+            <span>4,210+ Gigs</span>
+            <span class="text-brand-indigo group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Category Card 2 -->
+        <div class="bg-white p-6 rounded-xl shadow-card hover:shadow-card-hover transition-all border border-slate-100 group cursor-pointer">
+          <div class="w-12 h-12 rounded-lg bg-brand-indigo text-brand-cyan flex items-center justify-center text-xl font-bold group-hover:scale-110 group-hover:bg-brand-lime group-hover:text-brand-darkIndigo transition-all">
+            <i class="fa-solid fa-language"></i>
+          </div>
+          <h3 class="mt-4 font-bold text-lg text-brand-indigo">Translation & Arabic SEO</h3>
+          <p class="text-xs text-slate-500 mt-1">Legal translation, Localization, Copywriting</p>
+          <div class="mt-4 flex items-center justify-between text-xs font-semibold text-slate-600 pt-3 border-t border-slate-100">
+            <span>3,150+ Gigs</span>
+            <span class="text-brand-indigo group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Category Card 3 -->
+        <div class="bg-white p-6 rounded-xl shadow-card hover:shadow-card-hover transition-all border border-slate-100 group cursor-pointer">
+          <div class="w-12 h-12 rounded-lg bg-brand-indigo text-brand-cyan flex items-center justify-center text-xl font-bold group-hover:scale-110 group-hover:bg-brand-lime group-hover:text-brand-darkIndigo transition-all">
+            <i class="fa-solid fa-pen-nib"></i>
+          </div>
+          <h3 class="mt-4 font-bold text-lg text-brand-indigo">Design & Branding</h3>
+          <p class="text-xs text-slate-500 mt-1">Logo, Visual Identity, UI/UX, Motion Graphics</p>
+          <div class="mt-4 flex items-center justify-between text-xs font-semibold text-slate-600 pt-3 border-t border-slate-100">
+            <span>5,890+ Gigs</span>
+            <span class="text-brand-indigo group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Category Card 4 -->
+        <div class="bg-white p-6 rounded-xl shadow-card hover:shadow-card-hover transition-all border border-slate-100 group cursor-pointer">
+          <div class="w-12 h-12 rounded-lg bg-brand-indigo text-brand-cyan flex items-center justify-center text-xl font-bold group-hover:scale-110 group-hover:bg-brand-lime group-hover:text-brand-darkIndigo transition-all">
+            <i class="fa-solid fa-bullhorn"></i>
+          </div>
+          <h3 class="mt-4 font-bold text-lg text-brand-indigo">GCC Media & Growth</h3>
+          <p class="text-xs text-slate-500 mt-1">Snapchat Ads, TikTok Shop, Influencer Mgmt</p>
+          <div class="mt-4 flex items-center justify-between text-xs font-semibold text-slate-600 pt-3 border-t border-slate-100">
+            <span>2,740+ Gigs</span>
+            <span class="text-brand-indigo group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= POPULAR GIGS MARKETPLACE SHOWCASE ================= -->
+  <section id="explore" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-indigo">Handpicked Freelance Services</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-indigo mt-1">Popular Marketplace Gigs</h2>
+        </div>
+        
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap gap-2 mt-4 md:mt-0">
+          <button onclick="filterGigs('all')" class="gig-filter-btn active bg-brand-indigo text-white px-4 py-2 rounded-lg text-xs font-bold transition-all">All</button>
+          <button onclick="filterGigs('tech')" class="gig-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-xs font-bold transition-all">Tech & AI</button>
+          <button onclick="filterGigs('design')" class="gig-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-xs font-bold transition-all">Branding</button>
+          <button onclick="filterGigs('marketing')" class="gig-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-xs font-bold transition-all">GCC Marketing</button>
+        </div>
+      </div>
+
+      <!-- Gigs Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gigs-container">
+        
+        <!-- Gig 1 -->
+        <div class="gig-card bg-white rounded-xl overflow-hidden border border-slate-200 shadow-card hover:shadow-card-hover transition-all flex flex-col justify-between" data-category="design">
+          <div>
+            <div class="relative h-48 overflow-hidden bg-slate-100">
+              <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=600" alt="Corporate Branding" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 right-3 bg-brand-darkIndigo/80 text-brand-cyan text-xs font-bold px-2.5 py-1 rounded-md backdrop-blur-sm">
+                Corporate ID
+              </span>
+            </div>
+            
+            <div class="p-5">
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="Tariq S." class="w-9 h-9 rounded-full object-cover border border-brand-cyan">
+                <div>
+                  <p class="text-xs font-bold text-brand-indigo">Tariq Al-Mansoor 🇸🇦</p>
+                  <p class="text-[11px] text-slate-500">Level 2 Seller • Riyadh</p>
+                </div>
+              </div>
+
+              <h3 class="mt-3 font-bold text-sm text-slate-800 hover:text-brand-indigo cursor-pointer line-clamp-2">
+                Complete Corporate Brand Guidelines & Visual Identity System for Tech Startups
+              </h3>
+
+              <div class="mt-3 flex items-center gap-1 text-xs text-amber-500">
+                <i class="fa-solid fa-star"></i>
+                <span class="font-bold text-slate-800">5.0</span>
+                <span class="text-slate-400">(89 reviews)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-5 py-3 bg-brand-ice border-t border-slate-100 flex items-center justify-between text-xs">
+            <button class="text-slate-400 hover:text-rose-500 transition-colors">
+              <i class="fa-regular fa-heart text-base"></i>
+            </button>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">STARTING AT</span>
+              <span class="font-extrabold text-brand-indigo text-base">$450</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gig 2 -->
+        <div class="gig-card bg-white rounded-xl overflow-hidden border border-slate-200 shadow-card hover:shadow-card-hover transition-all flex flex-col justify-between" data-category="tech">
+          <div>
+            <div class="relative h-48 overflow-hidden bg-slate-100">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=600" alt="Web Development" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 right-3 bg-brand-darkIndigo/80 text-brand-lime text-xs font-bold px-2.5 py-1 rounded-md backdrop-blur-sm">
+                Full-Stack
+              </span>
+            </div>
+            
+            <div class="p-5">
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100" alt="Yasmine K." class="w-9 h-9 rounded-full object-cover border border-brand-cyan">
+                <div>
+                  <p class="text-xs font-bold text-brand-indigo">Yasmine Khalil 🇪🇬</p>
+                  <p class="text-[11px] text-slate-500">Top Rated • Cairo</p>
+                </div>
+              </div>
+
+              <h3 class="mt-3 font-bold text-sm text-slate-800 hover:text-brand-indigo cursor-pointer line-clamp-2">
+                Custom Next.js & Tailwind E-Commerce Platform with Tap & Pay Payment Gateway
+              </h3>
+
+              <div class="mt-3 flex items-center gap-1 text-xs text-amber-500">
+                <i class="fa-solid fa-star"></i>
+                <span class="font-bold text-slate-800">4.97</span>
+                <span class="text-slate-400">(214 reviews)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-5 py-3 bg-brand-ice border-t border-slate-100 flex items-center justify-between text-xs">
+            <button class="text-slate-400 hover:text-rose-500 transition-colors">
+              <i class="fa-regular fa-heart text-base"></i>
+            </button>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">STARTING AT</span>
+              <span class="font-extrabold text-brand-indigo text-base">$800</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gig 3 -->
+        <div class="gig-card bg-white rounded-xl overflow-hidden border border-slate-200 shadow-card hover:shadow-card-hover transition-all flex flex-col justify-between" data-category="marketing">
+          <div>
+            <div class="relative h-48 overflow-hidden bg-slate-100">
+              <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=600" alt="Social Media" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <span class="absolute top-3 right-3 bg-brand-darkIndigo/80 text-brand-cyan text-xs font-bold px-2.5 py-1 rounded-md backdrop-blur-sm">
+                Performance Ads
+              </span>
+            </div>
+            
+            <div class="p-5">
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" alt="Omar F." class="w-9 h-9 rounded-full object-cover border border-brand-cyan">
+                <div>
+                  <p class="text-xs font-bold text-brand-indigo">Omar Farooq 🇦🇪</p>
+                  <p class="text-[11px] text-slate-500">PRO Verified • Dubai</p>
+                </div>
+              </div>
+
+              <h3 class="mt-3 font-bold text-sm text-slate-800 hover:text-brand-indigo cursor-pointer line-clamp-2">
+                Snapchat & TikTok Paid Ads Campaign Setup with Arabic Ad Creatives for KSA & UAE
+              </h3>
+
+              <div class="mt-3 flex items-center gap-1 text-xs text-amber-500">
+                <i class="fa-solid fa-star"></i>
+                <span class="font-bold text-slate-800">4.92</span>
+                <span class="text-slate-400">(67 reviews)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-5 py-3 bg-brand-ice border-t border-slate-100 flex items-center justify-between text-xs">
+            <button class="text-slate-400 hover:text-rose-500 transition-colors">
+              <i class="fa-regular fa-heart text-base"></i>
+            </button>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">STARTING AT</span>
+              <span class="font-extrabold text-brand-indigo text-base">$300</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS SECTION ================= -->
+  <section id="how-it-works" class="py-20 bg-brand-darkIndigo text-white relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-brand-lime">Trust & Transparency</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2">How ezlancing Platform Works</h2>
+        <p class="text-slate-300 mt-3 text-sm sm:text-base">Designed explicitly for seamless cross-border collaboration within the MENA region.</p>
+      </div>
+
+      <!-- Toggle: For Clients vs For Freelancers -->
+      <div class="flex justify-center mb-12">
+        <div class="bg-white/10 p-1 rounded-xl flex items-center gap-1 border border-white/10">
+          <button id="btn-flow-client" onclick="switchFlow('client')" class="px-6 py-2.5 rounded-lg text-sm font-bold bg-brand-lime text-brand-darkIndigo shadow-md transition-all">
+            For Employers & Clients
+          </button>
+          <button id="btn-flow-freelancer" onclick="switchFlow('freelancer')" class="px-6 py-2.5 rounded-lg text-sm font-bold text-slate-300 hover:text-white transition-all">
+            For MENA Freelancers
+          </button>
+        </div>
+      </div>
+
+      <!-- Flow Container: Client Flow -->
+      <div id="flow-client" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-cyan/40 transition-all relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-lime text-brand-darkIndigo font-black text-xl flex items-center justify-center mb-6">
+            1
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Post a Job or Select a Gig</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Specify your requirements, budget in local currency (AED, SAR, EGP, USD), and delivery timeframe.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-cyan/40 transition-all relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-cyan text-brand-darkIndigo font-black text-xl flex items-center justify-center mb-6">
+            2
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Fund Milestone Escrow</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Deposit funds securely into the ezlancing Escrow Vault. Your money is only released when you approve the work.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-cyan/40 transition-all relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-lime text-brand-darkIndigo font-black text-xl flex items-center justify-center mb-6">
+            3
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Approve & Release Payment</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Receive your completed deliverables, request revisions if needed, and release funds with instant invoice generation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Flow Container: Freelancer Flow (Hidden by default) -->
+      <div id="flow-freelancer" class="hidden grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-cyan/40 transition-all relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-cyan text-brand-darkIndigo font-black text-xl flex items-center justify-center mb-6">
+            1
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Build Your Verified Profile</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Showcase your portfolio, set fixed-price Gigs or hourly rates, and pass identity verification.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-cyan/40 transition-all relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-lime text-brand-darkIndigo font-black text-xl flex items-center justify-center mb-6">
+            2
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Work with Funded Security</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Start working only after the client funds escrow. Collaborate using built-in English/Arabic workrooms.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-brand-cyan/40 transition-all relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-cyan text-brand-darkIndigo font-black text-xl flex items-center justify-center mb-6">
+            3
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">Direct Local Bank Payout</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Withdraw earnings directly to local MENA bank accounts, Payoneer, or regional digital wallets in your currency.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= LOCAL PAYMENT INTEGRATION BANNER ================= -->
+  <section class="py-12 bg-slate-100 border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-6">Seamless Regional & International Payment Gateways Supported</p>
+      
+      <div class="flex flex-wrap items-center justify-center gap-8 opacity-70 grayscale hover:grayscale-0 transition-all">
+        <!-- Payment Badges (Styled placeholders for regional payment methods) -->
+        <span class="font-black text-xl text-brand-indigo flex items-center gap-1"><i class="fa-solid fa-credit-card"></i> mada</span>
+        <span class="font-black text-xl text-brand-indigo flex items-center gap-1"><i class="fa-solid fa-building-columns"></i> KNET</span>
+        <span class="font-black text-xl text-brand-indigo flex items-center gap-1"><i class="fa-brands fa-apple"></i> Apple Pay</span>
+        <span class="font-black text-xl text-brand-indigo flex items-center gap-1"><i class="fa-brands fa-cc-visa"></i> VISA</span>
+        <span class="font-black text-xl text-brand-indigo flex items-center gap-1"><i class="fa-brands fa-cc-mastercard"></i> MasterCard</span>
+        <span class="font-black text-xl text-brand-indigo flex items-center gap-1"><i class="fa-solid fa-wallet"></i> Vodafone Cash</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DUAL CALL TO ACTION ================= -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- CTA 1: For Employers -->
+        <div class="bg-brand-ice p-8 sm:p-12 rounded-2xl border border-slate-200 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-brand-cyan/10 rounded-full blur-2xl group-hover:bg-brand-cyan/20 transition-all"></div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-indigo">For Businesses & Startups</span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-brand-indigo mt-2">Hire Top MENA Talent Today</h3>
+            <p class="text-slate-600 mt-3 text-sm leading-relaxed">
+              Scale your team with pre-vetted freelancers across GCC and North Africa. Guaranteed milestones and fast delivery.
+            </p>
+          </div>
+          <div class="mt-8">
+            <a href="#post-job" class="inline-flex items-center gap-3 bg-brand-indigo text-white font-bold px-6 py-3.5 rounded-lg hover:bg-brand-darkIndigo transition-all shadow-md">
+              <span>Post a Job Free</span>
+              <i class="fa-solid fa-arrow-right text-brand-lime"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- CTA 2: For Freelancers -->
+        <div class="bg-brand-indigo text-white p-8 sm:p-12 rounded-2xl flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-brand-lime/10 rounded-full blur-2xl group-hover:bg-brand-lime/20 transition-all"></div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-lime">For Skilled Professionals</span>
+            <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">Monetize Your Freelance Skills</h3>
+            <p class="text-slate-300 mt-3 text-sm leading-relaxed">
+              Work from your couch. Join thousands of creators, engineers, and marketers earning in USD & regional currencies.
+            </p>
+          </div>
+          <div class="mt-8">
+            <a href="#become-seller" class="inline-flex items-center gap-3 bg-brand-lime text-brand-darkIndigo font-bold px-6 py-3.5 rounded-lg hover:bg-brand-brightLime transition-all shadow-lime-glow">
+              <span>Create a Seller Profile</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-brand-darkIndigo text-white border-t border-white/10 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        
+        <!-- Brand Summary -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <svg class="w-8 h-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="15" y="25" width="70" height="48" rx="4" stroke="#4FE8F4" stroke-width="5" fill="#18123C"/>
+              <path d="M5 77H95V81H5V77Z" fill="#4FE8F4"/>
+              <path d="M50 10 L75 46 L50 38 L25 46 Z" fill="#36E514"/>
+            </svg>
+            <span class="text-2xl font-extrabold tracking-tight">ezlancing<span class="text-brand-lime">.</span></span>
+          </div>
+          <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+            ezlancing platform is the premier freelance marketplace bridging the gap between GCC enterprise demand and MENA creative & tech talent.
+          </p>
+          <div class="flex items-center gap-4 text-slate-400">
+            <a href="#" class="hover:text-brand-lime text-lg transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#" class="hover:text-brand-lime text-lg transition-colors"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="hover:text-brand-lime text-lg transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="hover:text-brand-lime text-lg transition-colors"><i class="fa-brands fa-facebook"></i></a>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-4">Categories</h4>
+          <ul class="space-y-2 text-xs text-slate-300 font-medium">
+            <li><a href="#" class="hover:text-white transition-colors">Development & Tech</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Arabic Translation & Content</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Graphics & Design</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Digital Marketing</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Video & Animation</a></li>
+          </ul>
+        </div>
+
+        <!-- Platform -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-4">Platform</h4>
+          <ul class="space-y-2 text-xs text-slate-300 font-medium">
+            <li><a href="#" class="hover:text-white transition-colors">How Escrow Works</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Trust & Safety</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">MENA Enterprise Solutions</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Freelancer Community</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Fee Structure</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal & Regional -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-brand-cyan mb-4">Regional Hubs</h4>
+          <ul class="space-y-2 text-xs text-slate-300 font-medium">
+            <li><a href="#" class="hover:text-white transition-colors">Riyadh, Saudi Arabia 🇸🇦</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Dubai, UAE 🇦🇪</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Cairo, Egypt 🇪🇬</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Amman, Jordan 🇯🇴</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+        <p>&copy; 2026 ezlancing platform Ltd. All rights reserved.</p>
+        <p class="font-medium text-slate-300">Work from your couch. Elevate your potential.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= CURRENCY / REGION MODAL ================= -->
+  <div id="currency-modal" class="fixed inset-0 bg-brand-darkIndigo/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 text-brand-dark relative shadow-2xl border border-slate-100">
+      <button onclick="toggleCurrencyModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <h3 class="text-xl font-bold text-brand-indigo mb-1">Regional Preferences</h3>
+      <p class="text-xs text-slate-500 mb-6">Select your preferred currency for gig pricing & payouts.</p>
+
+      <div class="space-y-3">
+        <label class="flex items-center justify-between p-3 rounded-lg border border-brand-indigo bg-brand-ice cursor-pointer font-semibold text-xs">
+          <span class="flex items-center gap-3">
+            <span class="text-base">🇦🇪</span> USD ($) / AED (United Arab Emirates)
+          </span>
+          <input type="radio" name="currency" checked class="accent-brand-indigo">
+        </label>
+        
+        <label class="flex items-center justify-between p-3 rounded-lg border border-slate-200 hover:border-brand-indigo cursor-pointer font-semibold text-xs transition-colors">
+          <span class="flex items-center gap-3">
+            <span class="text-base">🇸🇦</span> SAR (Saudi Riyal)
+          </span>
+          <input type="radio" name="currency" class="accent-brand-indigo">
+        </label>
+
+        <label class="flex items-center justify-between p-3 rounded-lg border border-slate-200 hover:border-brand-indigo cursor-pointer font-semibold text-xs transition-colors">
+          <span class="flex items-center gap-3">
+            <span class="text-base">🇪🇬</span> EGP (Egyptian Pound)
+          </span>
+          <input type="radio" name="currency" class="accent-brand-indigo">
+        </label>
+      </div>
+
+      <button onclick="toggleCurrencyModal()" class="w-full mt-6 bg-brand-lime text-brand-darkIndigo font-bold py-3 rounded-lg hover:bg-brand-brightLime transition-colors">
+        Apply Settings
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= INTERACTIVE JAVASCRIPT ================= -->
+  <script>
+    // Mobile Menu Toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Search Tab Switching Logic
+    let currentSearchTab = 'services';
+    function switchSearchTab(tab) {
+      currentSearchTab = tab;
+      const tabServices = document.getElementById('tab-services');
+      const tabTalent = document.getElementById('tab-talent');
+      const input = document.getElementById('search-input');
+
+      if (tab === 'services') {
+        tabServices.className = 'py-2 px-4 text-sm font-bold border-b-2 border-brand-indigo text-brand-indigo flex items-center gap-2';
+        tabTalent.className = 'py-2 px-4 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-brand-indigo flex items-center gap-2';
+        input.placeholder = "Try 'Arabic SEO Expert' or 'Mobile App Developer'...";
+      } else {
+        tabTalent.className = 'py-2 px-4 text-sm font-bold border-b-2 border-brand-indigo text-brand-indigo flex items-center gap-2';
+        tabServices.className = 'py-2 px-4 text-sm font-medium border-b-2 border-transparent text-slate-500 hover:text-brand-indigo flex items-center gap-2';
+        input.placeholder = "Search freelancers by name or technical skill...";
+      }
+    }
+
+    function setSearch(term) {
+      document.getElementById('search-input').value = term;
+    }
+
+    function executeSearch() {
+      const term = document.getElementById('search-input').value;
+      alert(`Searching for ${currentSearchTab} matching: "${term || 'All MENA Listings'}"`);
+    }
+
+    // Filter Gigs Marketplace
+    function filterGigs(category) {
+      const buttons = document.querySelectorAll('.gig-filter-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('active', 'bg-brand-indigo', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+
+      event.target.classList.add('active', 'bg-brand-indigo', 'text-white');
+      event.target.classList.remove('bg-slate-100', 'text-slate-700');
+
+      const cards = document.querySelectorAll('.gig-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Switch How It Works Flow (Client vs Freelancer)
+    function switchFlow(type) {
+      const clientFlow = document.getElementById('flow-client');
+      const freelancerFlow = document.getElementById('flow-freelancer');
+      const btnClient = document.getElementById('btn-flow-client');
+      const btnFreelancer = document.getElementById('btn-flow-freelancer');
+
+      if (type === 'client') {
+        clientFlow.classList.remove('hidden');
+        freelancerFlow.classList.add('hidden');
+        btnClient.className = 'px-6 py-2.5 rounded-lg text-sm font-bold bg-brand-lime text-brand-darkIndigo shadow-md transition-all';
+        btnFreelancer.className = 'px-6 py-2.5 rounded-lg text-sm font-bold text-slate-300 hover:text-white transition-all';
+      } else {
+        freelancerFlow.classList.remove('hidden');
+        clientFlow.classList.add('hidden');
+        btnFreelancer.className = 'px-6 py-2.5 rounded-lg text-sm font-bold bg-brand-lime text-brand-darkIndigo shadow-md transition-all';
+        btnClient.className = 'px-6 py-2.5 rounded-lg text-sm font-bold text-slate-300 hover:text-white transition-all';
+      }
+    }
+
+    // Currency Modal Toggle
+    function toggleCurrencyModal() {
+      const modal = document.getElementById('currency-modal');
+      modal.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>

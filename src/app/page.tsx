@@ -1,69 +1,52 @@
-import Image from "next/image";
+'use client';
 
+import Image from 'next/image';
+import { useMemo, useState, type FormEvent } from 'react';
+import './ezlancing-landing.css';
+
+type Lang = 'en' | 'ar';
+type Filter = 'all' | 'tech' | 'design' | 'marketing';
+const copy = {
+ en: {nav:['Find Work','Categories','How It Works','MENA Focus'],sign:'Sign In',join:'Get Started',eyebrow:'A new marketplace built for MENA',hero:'Your talent. Your opportunity. One marketplace.',sub:'Discover freelance projects, explore packaged services, and connect with professionals across the region.',services:'Find Services',talent:'Hire Freelancers',search:'Search',placeholder:'Search skills, services or freelancers',cat:'Explore high-demand categories',catsub:'Find expertise across digital and creative disciplines.',gigs:'Explore example services',gigsSub:'Illustrative service concepts — not live seller listings.',how:'How Ezlancing works',clients:'For Clients',freelancers:'For Freelancers',cta1:'Find the right expertise',cta2:'Grow your freelance career',cta1sub:'Explore services and talent. Project publishing is coming in a future release.',cta2sub:'Build your presence and connect with clients when registrations open.',start:'Explore Services',discover:'Explore Categories',regional:'Built for Arabic and English collaboration',footer:'An original freelancing marketplace in development.',soon:'Coming soon',demo:'Sample',all:'All',tech:'Tech & AI',design:'Design',marketing:'Marketing',currency:'Currency display',language:'Language'},
+ ar: {nav:['اكتشف الخدمات','التخصصات','كيف تعمل المنصة','المنطقة العربية'],sign:'تسجيل الدخول',join:'ابدأ الآن',eyebrow:'سوق عمل حر جديد للمنطقة العربية',hero:'موهبتك. فرصتك. منصة واحدة.',sub:'اكتشف المشاريع والخدمات المستقلة وتواصل مع المحترفين في مختلف أنحاء المنطقة.',services:'استكشف الخدمات',talent:'ابحث عن مستقلين',search:'بحث',placeholder:'ابحث عن مهارة أو خدمة أو مستقل',cat:'اكتشف التخصصات المطلوبة',catsub:'خبرات متنوعة في المجالات الرقمية والإبداعية.',gigs:'نماذج من الخدمات',gigsSub:'أمثلة توضيحية وليست عروضاً منشورة من مستقلين حقيقيين.',how:'كيف تعمل إزلانسينج',clients:'للعملاء',freelancers:'للمستقلين',cta1:'اعثر على الخبرة المناسبة',cta2:'طوّر مسيرتك كمستقل',cta1sub:'استكشف الخدمات والمواهب. نشر المشاريع سيتوفر في إصدار قادم.',cta2sub:'طوّر حضورك وتواصل مع العملاء عند فتح التسجيل.',start:'استكشف الخدمات',discover:'استكشف التخصصات',regional:'مصممة للتعاون باللغتين العربية والإنجليزية',footer:'منصة عمل حر أصلية قيد التطوير.',soon:'قريباً',demo:'مثال',all:'الكل',tech:'التقنية والذكاء الاصطناعي',design:'التصميم',marketing:'التسويق',currency:'عملة العرض',language:'اللغة'}
+};
+const categories = [
+ {icon:'⌘',en:'Software & Web Development',ar:'تطوير البرمجيات والويب',detail:'React · Mobile · API · AI'},
+ {icon:'文',en:'Translation & Localization',ar:'الترجمة والتعريب',detail:'Arabic SEO · Content · Legal'},
+ {icon:'✦',en:'Design & Branding',ar:'التصميم والهوية البصرية',detail:'Identity · UI/UX · Motion'},
+ {icon:'◉',en:'Marketing & Growth',ar:'التسويق والنمو',detail:'Social · Search · Campaigns'},
+];
+const examples: {tag:Exclude<Filter,'all'>,en:string,ar:string,descEn:string,descAr:string,starting:string}[] = [
+ {tag:'design',en:'Corporate identity & visual design',ar:'الهوية البصرية وتصميم العلامة التجارية',descEn:'Brand guides, digital assets and visual systems',descAr:'أدلة العلامة التجارية والأصول الرقمية',starting:'450'},
+ {tag:'tech',en:'Modern web application development',ar:'تطوير تطبيقات ويب حديثة',descEn:'Responsive products, dashboards and integrations',descAr:'تطبيقات متجاوبة ولوحات تحكم وتكاملات',starting:'800'},
+ {tag:'marketing',en:'Regional digital marketing strategy',ar:'استراتيجية تسويق رقمي إقليمية',descEn:'Bilingual campaign planning and optimization',descAr:'تخطيط وتحسين الحملات باللغتين',starting:'300'},
+];
+const steps = {
+ clients: [{en:'Describe your project',ar:'حدّد تفاصيل مشروعك'},{en:'Review relevant talent',ar:'راجع المستقلين المناسبين'},{en:'Collaborate on delivery',ar:'تعاون لاستلام العمل'}],
+ freelancers: [{en:'Create your portfolio',ar:'أنشئ معرض أعمالك'},{en:'Explore projects and services',ar:'استكشف المشاريع والخدمات'},{en:'Build lasting relationships',ar:'ابنِ علاقات عمل طويلة'}]
+};
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+ const [lang,setLang]=useState<Lang>('en'); const [tab,setTab]=useState<'services'|'talent'>('services');
+ const [filter,setFilter]=useState<Filter>('all'); const [flow,setFlow]=useState<'clients'|'freelancers'>('clients');
+ const [menu,setMenu]=useState(false); const [currency,setCurrency]=useState('USD'); const [query,setQuery]=useState('');
+ const t=copy[lang];const shown=useMemo(()=>examples.filter(x=>filter==='all'||x.tag===filter),[filter]);
+ const go=(anchor:string)=>{setMenu(false);document.getElementById(anchor)?.scrollIntoView({behavior:'smooth'});};
+ const submitSearch=(e:FormEvent)=>{e.preventDefault();go(tab==='services'?'services':'categories');};
+ return <div className="ez-page" lang={lang} dir={lang==='ar'?'rtl':'ltr'}>
+  <header className="ez-header"><div className="ez-container ez-nav"><button className="ez-brand" onClick={()=>go('home')} aria-label="Ezlancing home"><Image src="/brand/ezlancing-logo.png" alt="Ezlancing official logo" width={48} height={58} className="ez-brand-mark" priority/><span className="ez-brand-word">ezlancing<span>.</span><small>PLATFORM</small></span></button>
+   <nav className={'ez-links '+(menu?'ez-menu-open':'')} aria-label="Main navigation">{['services','categories','how','regional'].map((id,i)=><button key={id} onClick={()=>go(id)}>{t.nav[i]}</button>)}</nav>
+   <div className="ez-nav-actions"><select aria-label={t.currency} value={currency} onChange={e=>setCurrency(e.target.value)}>{['USD','AED','SAR','JOD','EGP'].map(c=><option key={c}>{c}</option>)}</select><button className="ez-language" onClick={()=>setLang(lang==='en'?'ar':'en')} aria-label={t.language}>{lang==='en'?'العربية':'English'}</button><button className="ez-signin" title={t.soon} disabled>{t.sign}</button><button className="ez-primary ez-join" title={t.soon} disabled>{t.join}</button></div>
+   <button className="ez-mobile-trigger" onClick={()=>setMenu(!menu)} aria-expanded={menu} aria-label="Open menu">☰</button></div></header>
+  <main id="home"><section className="ez-hero"><div className="ez-container ez-hero-grid"><div className="ez-hero-copy"><span className="ez-kicker"><span className="ez-dot"/>{t.eyebrow}</span><h1>{t.hero}</h1><p>{t.sub}</p>
+   <form className="ez-search" onSubmit={submitSearch}><div className="ez-tabs"><button type="button" className={tab==='services'?'active':''} onClick={()=>setTab('services')}>{t.services}</button><button type="button" className={tab==='talent'?'active':''} onClick={()=>setTab('talent')}>{t.talent}</button></div><div className="ez-search-row"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder={t.placeholder} aria-label={t.placeholder}/><button className="ez-primary" type="submit">{t.search} ↗</button></div><small>{t.soon}: {tab==='services'?t.services:t.talent} · {query||'—'}</small></form>
+   <div className="ez-chips"><span>Arabic + English</span><span>MENA Focus</span><span>Project & Service Marketplace</span></div></div>
+   <div className="ez-hero-visual"><div className="ez-logo-glow"><Image src="/brand/ezlancing-logo.png" alt="Ezlancing brand mark featuring a laptop and upward pointer" width={360} height={440} priority/></div><div className="ez-feature-note">✦ {t.regional}</div></div></div></section>
+   <section className="ez-intro"><div className="ez-container ez-intro-row"><span>01 / Projects</span><span>02 / Services</span><span>03 / Talent</span><span>04 / Collaboration</span></div></section>
+   <section id="categories" className="ez-section ez-ice"><div className="ez-container"><div className="ez-section-head"><div><span className="ez-eyebrow">DISCOVER</span><h2>{t.cat}</h2><p>{t.catsub}</p></div></div><div className="ez-category-grid">{categories.map((c,i)=><button key={i} className="ez-category-card" onClick={()=>{setFilter(i===0?'tech':i===2?'design':i===3?'marketing':'all');go('services')}}><span className="ez-category-icon">{c.icon}</span><strong>{c[lang]}</strong><span>{c.detail}</span><b>↗</b></button>)}</div></div></section>
+   <section id="services" className="ez-section"><div className="ez-container"><div className="ez-section-head"><div><span className="ez-eyebrow">MARKETPLACE PREVIEW</span><h2>{t.gigs}</h2><p>{t.gigsSub}</p></div><div className="ez-filters">{(['all','tech','design','marketing'] as Filter[]).map(f=><button key={f} className={filter===f?'active':''} onClick={()=>setFilter(f)}>{t[f]}</button>)}</div></div><div className="ez-gig-grid">{shown.map((item,i)=><article key={item.en} className="ez-gig-card"><div className={'ez-gig-art art-'+item.tag}><span className="ez-gig-symbol">{item.tag==='tech'?'⌘':item.tag==='design'?'✦':'↗'}</span><span className="ez-demo-tag">{t.demo}</span></div><div className="ez-gig-body"><small>{item.tag.toUpperCase()} · {t.demo}</small><h3>{item[lang]}</h3><p>{lang==='en'?item.descEn:item.descAr}</p></div><footer><span>{t.soon}</span><strong>{currency} · {t.demo}</strong></footer></article>)}</div></div></section>
+   <section id="how" className="ez-section ez-how"><div className="ez-container"><div className="ez-how-head"><span className="ez-eyebrow">HOW IT WORKS</span><h2>{t.how}</h2><div className="ez-flow-buttons"><button className={flow==='clients'?'active':''} onClick={()=>setFlow('clients')}>{t.clients}</button><button className={flow==='freelancers'?'active':''} onClick={()=>setFlow('freelancers')}>{t.freelancers}</button></div></div><div className="ez-steps">{steps[flow].map((step,i)=><div className="ez-step" key={i}><span>0{i+1}</span><h3>{step[lang]}</h3><p>{t.soon}</p></div>)}</div></div></section>
+   <section id="regional" className="ez-section ez-regional"><div className="ez-container ez-region-card"><span className="ez-eyebrow">REGIONAL FIRST</span><h2>{t.regional}</h2><p>{lang==='en'?'Designed with Arabic RTL and English LTR experiences from day one.':'تم تصميم التجربة بالاتجاهين العربي والإنجليزي من البداية.'}</p><div className="ez-country-pills">{['Jordan','Saudi Arabia','United Arab Emirates','Egypt','Wider MENA'].map(x=><span key={x}>{x}</span>)}</div></div></section>
+   <section className="ez-section ez-cta-section"><div className="ez-container ez-cta-grid"><article><span>{t.clients}</span><h2>{t.cta1}</h2><p>{t.cta1sub}</p><button onClick={()=>go('services')}>{t.start} ↗</button></article><article><span>{t.freelancers}</span><h2>{t.cta2}</h2><p>{t.cta2sub}</p><button onClick={()=>go('categories')}>{t.discover} ↗</button></article></div></section>
+  </main><footer className="ez-footer"><div className="ez-container ez-footer-inner"><div className="ez-footer-brand"><Image src="/brand/ezlancing-logo.png" alt="Ezlancing" width={42} height={51}/><strong>ezlancing<span>.</span></strong></div><p>{t.footer}</p><small>© {new Date().getFullYear()} Ezlancing · {t.soon}</small></div></footer>
+ </div>;
 }
