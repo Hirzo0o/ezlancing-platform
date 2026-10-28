@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import '../ezlancing-landing.css';
 import './marketplace.css';
+import './marketplace.css';
 
 type Category = 'Design'|'Development'|'Writing'|'Video'|'Marketing'|'Data & AI'|'Music';
 type Gig = {id:number;title:string;category:Category;price:number;seller:string;rating:number;reviews:number};
