@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import '../ezlancing-landing.css';
 import './marketplace.css';
-import './marketplace.css';
 
 type Category = 'Design'|'Development'|'Writing'|'Video'|'Marketing'|'Data & AI'|'Music';
 type Gig = {id:number;title:string;category:Category;price:number;seller:string;rating:number;reviews:number};
@@ -47,7 +46,22 @@ export default function Marketplace(){
  const [projectCat,setProjectCat]=useState('All');
  const [selectedGig,setSelectedGig]=useState<Gig|null>(null);const [selectedProject,setSelectedProject]=useState<Project|null>(null);
  const [packageName,setPackageName]=useState('Basic');const [signIn,setSignIn]=useState(false);const [notice,setNotice]=useState('');
- useEffect(()=>{try{const saved=localStorage.getItem('ezlancing-marketplace-demo-v1');if(saved){const parsed=JSON.parse(saved);setStore({user:parsed.user??null,orders:Array.isArray(parsed.orders)?parsed.orders:[],bids:Array.isArray(parsed.bids)?parsed.bids:[],projects:Array.isArray(parsed.projects)?parsed.projects:[]});}}catch{}setReady(true)},[]);
+ useEffect(()=>{
+  let cancelled = false;
+  // Defer browser-local hydration until after the component is committed.
+  queueMicrotask(()=>{
+   if(cancelled)return;
+   try{
+    const saved=localStorage.getItem('ezlancing-marketplace-demo-v1');
+    if(saved){
+     const parsed=JSON.parse(saved);
+     setStore({user:parsed.user??null,orders:Array.isArray(parsed.orders)?parsed.orders:[],bids:Array.isArray(parsed.bids)?parsed.bids:[],projects:Array.isArray(parsed.projects)?parsed.projects:[]});
+    }
+   }catch{}
+   setReady(true);
+  });
+  return ()=>{cancelled=true};
+ },[]);
  useEffect(()=>{if(ready)localStorage.setItem('ezlancing-marketplace-demo-v1',JSON.stringify(store))},[store,ready]);
  const projects=[...store.projects,...initialProjects];
  const found=useMemo(()=>gigs.filter(g=>(cat==='All'||g.category===cat)&&[g.title,g.category,g.seller].join(' ').toLowerCase().includes(query.toLowerCase())).sort((a,b)=>sort==='low'?a.price-b.price:sort==='high'?b.price-a.price:b.reviews-a.reviews),[cat,query,sort]);
