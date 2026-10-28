@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ezlancing
+      POSTGRES_PASSWORD: ezlancing_local_only
+      POSTGRES_DB: ezlancing
+    ports:
+      - '127.0.0.1:5437:5432'
+    volumes:
+      - ezlancing_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ezlancing -d ezlancing']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  ezlancing_postgres_data:

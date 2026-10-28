@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  CLIENT
+  FREELANCER
+  ADMIN
+}
+
+enum ProjectStatus {
+  DRAFT
+  OPEN
+  AWARDED
+  CLOSED
+}
+
+enum ProposalStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String?
+  role      UserRole   @default(FREELANCER)
+  createdAt DateTime   @default(now())
+  projects  Project[]
+  proposals Proposal[]
+}
+
+model Project {
+  id            String        @id @default(cuid())
+  title         String
+  description   String
+  currency      String        @default("USD")
+  budgetMin     Int?
+  budgetMax     Int?
+  status        ProjectStatus @default(DRAFT)
+  clientId      String
+  client        User          @relation(fields: [clientId], references: [id])
+  proposals     Proposal[]
+  createdAt     DateTime      @default(now())
+}
+
+model Proposal {
+  id           String         @id @default(cuid())
+  projectId    String
+  freelancerId String
+  amountMinor  Int
+  currency     String         @default("USD")
+  message      String
+  status       ProposalStatus @default(PENDING)
+  createdAt    DateTime       @default(now())
+  project      Project        @relation(fields: [projectId], references: [id])
+  freelancer   User           @relation(fields: [freelancerId], references: [id])
+  @@unique([projectId, freelancerId])
+}

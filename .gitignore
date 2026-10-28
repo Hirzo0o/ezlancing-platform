@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local downloaded update packages
+ezlancing-brand-update.zip
+*.zip:Zone.Identifier
+*.zip:sec.endpointdlp
