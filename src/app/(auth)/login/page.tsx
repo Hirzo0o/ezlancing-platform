@@ -1,7 +1,10 @@
+export const instant = false;
+
+import { Suspense } from "react";
 import Link from "next/link";
 import { loginAction } from "@/server/actions/auth";
 
-export default async function LoginPage({ searchParams }: { searchParams: Promise<{ registered?: string }> }) {
+async function LoginContent({ searchParams }: { searchParams: Promise<{ registered?: string }> }) {
   const sp = await searchParams;
   return (
     <main className="min-h-screen flex items-center justify-center bg-brand-ice px-4 py-12">
@@ -24,5 +27,22 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </p>
       </div>
     </main>
+  );
+}
+
+
+export default function LoginPage({ searchParams }: {
+  searchParams: Promise<{ registered?: string }>;
+}) {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen flex items-center justify-center bg-brand-ice px-4 py-12">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-card p-8">
+          <p className="text-brand-indigo">Loading sign in...</p>
+        </div>
+      </main>
+    }>
+      <LoginContent searchParams={searchParams} />
+    </Suspense>
   );
 }
