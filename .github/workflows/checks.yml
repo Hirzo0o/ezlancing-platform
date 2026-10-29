@@ -5,6 +5,9 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    env:
+      # Placeholder only: no step connects to a database, but Prisma config and src/lib/db.ts require it to be set.
+      DATABASE_URL: postgresql://ezlancing:example@localhost:5437/ezlancing
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -12,9 +15,8 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - run: npx prisma generate
       - run: npx prisma validate
-        env:
-          DATABASE_URL: postgresql://ezlancing:example@localhost:5437/ezlancing
       - run: npm run lint
       - run: npx tsc --noEmit
       - run: npm run build
