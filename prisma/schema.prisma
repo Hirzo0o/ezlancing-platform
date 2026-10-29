@@ -6,17 +6,24 @@ datasource db {
   provider = "postgresql"
 }
 
-enum UserRole {
+enum Role {
   CLIENT
   FREELANCER
   ADMIN
 }
 
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
 enum ProjectStatus {
   DRAFT
   OPEN
-  AWARDED
-  CLOSED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }
 
 enum ProposalStatus {
@@ -26,40 +33,98 @@ enum ProposalStatus {
   WITHDRAWN
 }
 
+enum ContractStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum MilestoneStatus {
+  PENDING
+  FUNDED
+  SUBMITTED
+  APPROVED
+  RELEASED
+  DISPUTED
+}
+
 model User {
-  id        String     @id @default(cuid())
-  email     String     @unique
-  name      String?
-  role      UserRole   @default(FREELANCER)
-  createdAt DateTime   @default(now())
-  projects  Project[]
-  proposals Proposal[]
+  id                    String         @id @default(cuid())
+  email                 String         @unique
+  passwordHash          String?
+  name                  String?
+  role                  Role           @default(CLIENT)
+  status                UserStatus     @default(PENDING)
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+  projects              Project[]      @relation("ClientProjects")
+  proposals             Proposal[]
+  contractsAsFreelancer Contract[]     @relation("FreelancerContracts")
+  notifications         Notification[]
 }
 
 model Project {
-  id            String        @id @default(cuid())
-  title         String
-  description   String
-  currency      String        @default("USD")
-  budgetMin     Int?
-  budgetMax     Int?
-  status        ProjectStatus @default(DRAFT)
-  clientId      String
-  client        User          @relation(fields: [clientId], references: [id])
-  proposals     Proposal[]
-  createdAt     DateTime      @default(now())
+  id          String        @id @default(cuid())
+  clientId    String
+  title       String
+  description String        @db.Text
+  budgetMin   Decimal?      @db.Decimal(12, 2)
+  budgetMax   Decimal?      @db.Decimal(12, 2)
+  currency    String        @default("USD")
+  status      ProjectStatus @default(OPEN)
+  deadline    DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  client      User          @relation("ClientProjects", fields: [clientId], references: [id])
+  proposals   Proposal[]
+  contract    Contract?
 }
 
 model Proposal {
   id           String         @id @default(cuid())
   projectId    String
   freelancerId String
-  amountMinor  Int
+  coverLetter  String         @db.Text
+  bidAmount    Decimal        @db.Decimal(12, 2)
   currency     String         @default("USD")
-  message      String
+  deliveryDays Int
   status       ProposalStatus @default(PENDING)
   createdAt    DateTime       @default(now())
-  project      Project        @relation(fields: [projectId], references: [id])
+  project      Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
   freelancer   User           @relation(fields: [freelancerId], references: [id])
+
   @@unique([projectId, freelancerId])
+}
+
+model Contract {
+  id           String         @id @default(cuid())
+  projectId    String         @unique
+  freelancerId String
+  totalAmount  Decimal        @db.Decimal(12, 2)
+  currency     String         @default("USD")
+  status       ContractStatus @default(ACTIVE)
+  createdAt    DateTime       @default(now())
+  project      Project        @relation(fields: [projectId], references: [id])
+  freelancer   User           @relation("FreelancerContracts", fields: [freelancerId], references: [id])
+  milestones   Milestone[]
+}
+
+model Milestone {
+  id         String          @id @default(cuid())
+  contractId String
+  title      String
+  amount     Decimal         @db.Decimal(12, 2)
+  status     MilestoneStatus @default(PENDING)
+  dueAt      DateTime?
+  contract   Contract        @relation(fields: [contractId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  type      String
+  payload   Json
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
