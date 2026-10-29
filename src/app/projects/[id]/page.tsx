@@ -1,9 +1,18 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { acceptProposal, submitProposal } from "@/server/actions/projects";
 
-export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+export default function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  return (
+    <Suspense fallback={<main className="max-w-3xl mx-auto px-4 py-12"><p className="text-slate-500 text-sm">Loading project…</p></main>}>
+      <ProjectContent params={params} />
+    </Suspense>
+  );
+}
+
+async function ProjectContent({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const session = await auth();
   const project = await db.project.findUnique({

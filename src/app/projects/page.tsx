@@ -1,17 +1,17 @@
+import { Suspense } from "react";
 import Link from "next/link";
+import { connection } from "next/server";
 import { db } from "@/lib/db";
 
-export default async function ProjectsPage() {
+// Open projects change constantly, so the list is rendered per request and streamed in.
+async function OpenProjectsList() {
+  await connection();
   const projects = await db.project.findMany({
     where: { status: "OPEN" }, orderBy: { createdAt: "desc" }, take: 30,
     include: { client: { select: { name: true } }, _count: { select: { proposals: true } } },
   });
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-extrabold text-brand-indigo">Open projects</h1>
-        <Link href="/projects/new" className="bg-brand-lime text-brand-dark-indigo font-bold px-4 py-2.5 rounded-lg">Post a project</Link>
-      </div>
+    <>
       {projects.length === 0 && <p className="text-slate-500 text-sm">No open projects yet.</p>}
       <ul className="space-y-3">
         {projects.map(p => (
@@ -34,6 +34,20 @@ export default async function ProjectsPage() {
           </li>
         ))}
       </ul>
+    </>
+  );
+}
+
+export default function ProjectsPage() {
+  return (
+    <main className="max-w-4xl mx-auto px-4 py-12">
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-extrabold text-brand-indigo">Open projects</h1>
+        <Link href="/projects/new" className="bg-brand-lime text-brand-dark-indigo font-bold px-4 py-2.5 rounded-lg">Post a project</Link>
+      </div>
+      <Suspense fallback={<p className="text-slate-500 text-sm">Loading projects…</p>}>
+        <OpenProjectsList />
+      </Suspense>
     </main>
   );
 }

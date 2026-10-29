@@ -1,8 +1,17 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/rbac";
 import { createProject } from "@/server/actions/projects";
 
-export default async function NewProjectPage() {
+export default function NewProjectPage() {
+  return (
+    <Suspense fallback={<main className="max-w-2xl mx-auto px-4 py-12"><p className="text-slate-500 text-sm">Loading…</p></main>}>
+      <NewProjectForm />
+    </Suspense>
+  );
+}
+
+async function NewProjectForm() {
   const user = await requireUser();
   if (user.role !== "CLIENT") redirect("/dashboard");
   return (
