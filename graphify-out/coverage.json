@@ -1,0 +1,19 @@
+{
+  "tool": "graphifyy[sql]==0.9.112",
+  "mode": "local structural extraction; no semantic LLM pass",
+  "baseline_commit": "2dcf2d271cc13d6c18679e0cda0857b9abb33d69",
+  "scope": "main baseline plus mapping guidance changes; unmerged feature branches excluded",
+  "nodes": 5,
+  "edges": 3,
+  "file_only": [],
+  "sha256": {
+    "AGENTS.md": "eaba75af9912de875b4a352f26692b049effe89f3ee75fec5fcdc74180013c0e",
+    "README.md": "7ccb6472da7f0eced94b8b8045bc3af55832827b5fd8c8745450fe6d63fa3f1f"
+  },
+  "limitations": [
+    "Markdown headings, links and code mentions are structural, not semantic understanding.",
+    "HTML inline scripts and Prisma fields are not parsed; file inventory only.",
+    "Binary assets, lockfiles, seed/release data, vendor skills and untracked files excluded.",
+    "Static call/import resolution can be incomplete; verify source before changes."
+  ]
+}
